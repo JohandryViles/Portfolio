@@ -23,10 +23,10 @@ jobs:
           cache: npm
 
       - name: Align npm with lockfile
-        run: npm install -g npm@11.6.2
+        run: npm install -g npm@11.6.2 --ignore-scripts
 
       - name: Install
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       - name: Typecheck
         run: npm run check
