@@ -74,13 +74,97 @@ export const stackGroups: StackGroup[] = [
   },
 ];
 
+export type LocalizedCopy = {
+  es: string;
+  en: string;
+};
+
+export type ProjectCaseStudy = {
+  intro: LocalizedCopy;
+  overview: LocalizedCopy;
+  challenge: LocalizedCopy;
+  solution: LocalizedCopy;
+  results: LocalizedCopy;
+};
+
+export type ProjectGalleryItem = {
+  id: string;
+  src: string | null;
+  alt: LocalizedCopy;
+  caption: LocalizedCopy;
+};
+
 export type Project = {
   id: string;
-  title: { es: string; en: string };
-  description: { es: string; en: string };
+  title: LocalizedCopy;
+  description: LocalizedCopy;
   tags: string[];
   accent: 'violet' | 'teal' | 'amber';
+  caseStudy: ProjectCaseStudy;
+  gallery: ProjectGalleryItem[];
 };
+
+const createPlaceholderCaseStudy = (): ProjectCaseStudy => ({
+  intro: {
+    es: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae justo sed neque facilisis posuere vel at erat.',
+    en: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae justo sed neque facilisis posuere vel at erat.',
+  },
+  overview: {
+    es: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada, neque vitae luctus luctus, nibh justo vulputate nisl, vitae tincidunt sapien eros sed arcu.',
+    en: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada, neque vitae luctus luctus, nibh justo vulputate nisl, vitae tincidunt sapien eros sed arcu.',
+  },
+  challenge: {
+    es: 'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec posuere sem at tellus faucibus, sed feugiat lorem tincidunt.',
+    en: 'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec posuere sem at tellus faucibus, sed feugiat lorem tincidunt.',
+  },
+  solution: {
+    es: 'Curabitur euismod, magna non commodo volutpat, justo erat feugiat velit, at consequat lectus lacus a nibh. Aliquam erat volutpat.',
+    en: 'Curabitur euismod, magna non commodo volutpat, justo erat feugiat velit, at consequat lectus lacus a nibh. Aliquam erat volutpat.',
+  },
+  results: {
+    es: 'Vivamus vitae sapien sed neque gravida faucibus. Praesent ullamcorper, mauris quis porttitor feugiat, justo nulla finibus lacus, a posuere est erat non lorem.',
+    en: 'Vivamus vitae sapien sed neque gravida faucibus. Praesent ullamcorper, mauris quis porttitor feugiat, justo nulla finibus lacus, a posuere est erat non lorem.',
+  },
+});
+
+const createPlaceholderGallery = (): ProjectGalleryItem[] => [
+  {
+    id: 'main-view',
+    src: null,
+    alt: {
+      es: 'Marcador de posición para la vista principal del proyecto.',
+      en: 'Placeholder for the project main view.',
+    },
+    caption: {
+      es: 'Vista principal',
+      en: 'Main view',
+    },
+  },
+  {
+    id: 'interface-detail',
+    src: null,
+    alt: {
+      es: 'Marcador de posición para un detalle de la interfaz.',
+      en: 'Placeholder for an interface detail.',
+    },
+    caption: {
+      es: 'Detalle de interfaz',
+      en: 'Interface detail',
+    },
+  },
+  {
+    id: 'project-flow',
+    src: null,
+    alt: {
+      es: 'Marcador de posición para el flujo principal del proyecto.',
+      en: 'Placeholder for the project main flow.',
+    },
+    caption: {
+      es: 'Flujo del proyecto',
+      en: 'Project flow',
+    },
+  },
+];
 
 export const projects: Project[] = [
   {
@@ -95,6 +179,8 @@ export const projects: Project[] = [
     },
     tags: ['Astro', 'TypeScript', 'Cobe'],
     accent: 'violet',
+    caseStudy: createPlaceholderCaseStudy(),
+    gallery: createPlaceholderGallery(),
   },
   {
     id: 'api-starter',
@@ -108,6 +194,8 @@ export const projects: Project[] = [
     },
     tags: ['Node.js', 'TypeScript'],
     accent: 'teal',
+    caseStudy: createPlaceholderCaseStudy(),
+    gallery: createPlaceholderGallery(),
   },
   {
     id: 'campus-tool',
@@ -121,5 +209,7 @@ export const projects: Project[] = [
     },
     tags: ['React', 'PostgreSQL'],
     accent: 'amber',
+    caseStudy: createPlaceholderCaseStudy(),
+    gallery: createPlaceholderGallery(),
   },
 ];

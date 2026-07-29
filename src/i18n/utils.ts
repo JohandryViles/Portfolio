@@ -17,6 +17,17 @@ export function getLocalizedPath(lang: Lang, path = ''): string {
   return clean ? `/${lang}/${clean}` : `/${lang}`;
 }
 
+const localizedRouteSegments: Record<Lang, Record<string, string>> = {
+  es: {
+    projects: 'proyectos',
+    proyectos: 'proyectos',
+  },
+  en: {
+    projects: 'projects',
+    proyectos: 'projects',
+  },
+};
+
 /** Swap locale while preserving hash/section when possible. */
 export function switchLocalePath(currentPath: string, targetLang: Lang): string {
   const hashIndex = currentPath.indexOf('#');
@@ -28,5 +39,11 @@ export function switchLocalePath(currentPath: string, targetLang: Lang): string 
   } else {
     segments.unshift(targetLang);
   }
+
+  if (segments[1]) {
+    segments[1] =
+      localizedRouteSegments[targetLang][segments[1]] ?? segments[1];
+  }
+
   return `/${segments.join('/')}${hash}`;
 }

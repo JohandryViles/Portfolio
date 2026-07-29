@@ -8,13 +8,19 @@ interface Props {
   lang: Lang;
   title?: string;
   description?: string;
+  alternatePaths?: Record<Lang, string>;
 }
 
-const { lang, title, description } = Astro.props;
+const { lang, title, description, alternatePaths } = Astro.props;
 const t = useTranslations(lang);
 const pageTitle = title ?? t('meta.title');
 const pageDescription = description ?? t('meta.description');
-const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
+const baseUrl = Astro.site ?? Astro.url;
+const canonical = new URL(Astro.url.pathname, baseUrl);
+const alternates = alternatePaths ?? {
+  es: '/es',
+  en: '/en',
+};
 ---
 
 <!doctype html>
@@ -27,9 +33,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={pageDescription} />
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" hreflang="es" href={new URL('/es', Astro.url.origin)} />
-    <link rel="alternate" hreflang="en" href={new URL('/en', Astro.url.origin)} />
-    <link rel="alternate" hreflang="x-default" href={new URL('/es', Astro.url.origin)} />
+    <link rel="alternate" hreflang="es" href={new URL(alternates.es, baseUrl)} />
+    <link rel="alternate" hreflang="en" href={new URL(alternates.en, baseUrl)} />
+    <link rel="alternate" hreflang="x-default" href={new URL(alternates.es, baseUrl)} />
     <title>{pageTitle}</title>
   </head>
   <body class="min-h-screen">

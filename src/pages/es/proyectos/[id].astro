@@ -1,0 +1,34 @@
+---
+import ProjectCaseStudy from '../../../components/ProjectCaseStudy.astro';
+import { projects, site, type Project } from '../../../data/site';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+interface Props {
+  project: Project;
+}
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { id: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const lang = 'es' as const;
+const alternatePaths = {
+  es: `/es/proyectos/${project.id}`,
+  en: `/en/projects/${project.id}`,
+};
+---
+
+<BaseLayout
+  lang={lang}
+  title={`${project.title[lang]} | ${site.name}`}
+  description={project.description[lang]}
+  alternatePaths={alternatePaths}
+>
+  <ProjectCaseStudy project={project} lang={lang} />
+</BaseLayout>

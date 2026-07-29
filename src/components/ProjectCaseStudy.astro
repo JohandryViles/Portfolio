@@ -1,0 +1,310 @@
+---
+import type { Project } from '../data/site';
+import { useTranslations } from '../i18n/utils';
+import type { Lang } from '../i18n/ui';
+
+interface Props {
+  project: Project;
+  lang: Lang;
+}
+
+const { project, lang } = Astro.props;
+const t = useTranslations(lang);
+const projectHome = `/${lang}#projects`;
+
+const accents: Record<Project['accent'], string> = {
+  violet: 'from-[#f5f5f5]/35 via-[#a6a6a6]/25 to-[#3d3d3d]/80',
+  teal: 'from-[#a6a6a6]/40 via-[#3d3d3d]/50 to-[#121212]/90',
+  amber: 'from-[#f5f5f5]/25 via-[#3d3d3d]/60 to-[#121212]/95',
+};
+
+const sections = [
+  {
+    id: 'challenge',
+    label: t('caseStudy.challenge'),
+    copy: project.caseStudy.challenge[lang],
+  },
+  {
+    id: 'solution',
+    label: t('caseStudy.solution'),
+    copy: project.caseStudy.solution[lang],
+  },
+  {
+    id: 'results',
+    label: t('caseStudy.results'),
+    copy: project.caseStudy.results[lang],
+  },
+] as const;
+---
+
+<article class="pb-24 pt-10 md:pb-32 md:pt-16">
+  <div class="page-shell">
+    <a
+      href={projectHome}
+      class="group inline-flex items-center gap-2 rounded-full text-sm text-muted transition-colors duration-300 hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
+    >
+      <span
+        aria-hidden="true"
+        class="transition-transform duration-300 ease-[var(--ease-out-expo)] group-hover:-translate-x-1"
+      >
+        ←
+      </span>
+      {t('caseStudy.back')}
+    </a>
+
+    <header class="mt-12 grid gap-8 lg:grid-cols-[minmax(0,1.25fr)_minmax(16rem,0.75fr)] lg:items-end">
+      <div>
+        <p class="text-xs uppercase tracking-[0.2em] text-muted">
+          {t('caseStudy.eyebrow')}
+        </p>
+        <h1 class="mt-4 max-w-4xl text-4xl font-semibold leading-[1.08] text-ink sm:text-5xl md:text-6xl">
+          {project.title[lang]}
+        </h1>
+      </div>
+
+      <div>
+        <p class="text-base leading-relaxed text-muted md:text-lg">
+          {project.caseStudy.intro[lang]}
+        </p>
+        <ul class="mt-5 flex flex-wrap gap-2" aria-label={t('caseStudy.technologies')}>
+          {
+            project.tags.map((tag) => (
+              <li class="rounded-full border border-line px-3 py-1.5 text-xs text-muted">
+                {tag}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </header>
+
+    <div
+      class:list={[
+        'case-hero relative mt-12 min-h-[23rem] overflow-hidden rounded-[2rem] border border-line bg-gradient-to-br sm:min-h-[30rem]',
+        accents[project.accent],
+      ]}
+      role="img"
+      aria-label={`${project.title[lang]} — ${t('caseStudy.imagePlaceholder')}`}
+    >
+      <div class="case-grid" aria-hidden="true"></div>
+      <div class="case-orb" aria-hidden="true"></div>
+      <div class="case-orb case-orb--small" aria-hidden="true"></div>
+
+      <div class="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6 sm:p-8">
+        <span class="rounded-full border border-white/20 bg-black/20 px-3 py-1.5 text-[0.68rem] uppercase tracking-[0.18em] text-ink backdrop-blur-md">
+          {project.id}
+        </span>
+        <span class="font-display text-xs text-ink/70">
+          01 / {String(project.gallery.length + 1).padStart(2, '0')}
+        </span>
+      </div>
+    </div>
+
+    <section
+      class="mt-20 grid gap-12 border-t border-line pt-10 md:mt-28 md:grid-cols-[minmax(13rem,0.7fr)_minmax(0,1.3fr)] md:gap-16 md:pt-14"
+      aria-labelledby="overview-title"
+    >
+      <div>
+        <p class="font-display text-xs text-muted">01</p>
+        <h2 id="overview-title" class="mt-3 text-2xl font-semibold text-ink md:text-3xl">
+          {t('caseStudy.overview')}
+        </h2>
+      </div>
+      <p class="max-w-3xl text-base leading-8 text-muted md:text-lg md:leading-9">
+        {project.caseStudy.overview[lang]}
+      </p>
+    </section>
+
+    <div class="mt-16 border-y border-line md:mt-24">
+      {
+        sections.map((section, index) => (
+          <section
+            id={section.id}
+            class="grid gap-6 border-b border-line py-10 last:border-b-0 md:grid-cols-[minmax(13rem,0.7fr)_minmax(0,1.3fr)] md:gap-16 md:py-14"
+            aria-labelledby={`${section.id}-title`}
+          >
+            <div>
+              <p class="font-display text-xs text-muted">
+                {String(index + 2).padStart(2, '0')}
+              </p>
+              <h2
+                id={`${section.id}-title`}
+                class="mt-3 text-2xl font-semibold text-ink md:text-3xl"
+              >
+                {section.label}
+              </h2>
+            </div>
+            <p class="max-w-3xl text-base leading-8 text-muted md:text-lg md:leading-9">
+              {section.copy}
+            </p>
+          </section>
+        ))
+      }
+    </div>
+
+    <section class="mt-20 md:mt-28" aria-labelledby="gallery-title">
+      <div class="flex items-end justify-between gap-6">
+        <div>
+          <p class="font-display text-xs text-muted">05</p>
+          <h2 id="gallery-title" class="mt-3 text-2xl font-semibold text-ink md:text-3xl">
+            {t('caseStudy.gallery')}
+          </h2>
+        </div>
+        <p class="hidden max-w-xs text-right text-sm leading-relaxed text-muted sm:block">
+          {t('caseStudy.galleryNote')}
+        </p>
+      </div>
+
+      <div class="mt-8 grid gap-6 md:grid-cols-2">
+        {
+          project.gallery.map((item, index) => (
+            <figure class:list={['group', index === 0 && 'md:col-span-2']}>
+              <div
+                class:list={[
+                  'gallery-frame relative overflow-hidden rounded-[1.75rem] border border-line bg-gradient-to-br',
+                  index === 0 ? 'aspect-[16/8]' : 'aspect-[4/3]',
+                  accents[project.accent],
+                ]}
+              >
+                {item.src ? (
+                  <img
+                    src={item.src}
+                    alt={item.alt[lang]}
+                    class="size-full object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.02]"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <div
+                    class="size-full"
+                    role="img"
+                    aria-label={item.alt[lang]}
+                  >
+                    <div class="gallery-grid" aria-hidden="true"></div>
+                    <div
+                      class:list={[
+                        'gallery-shape',
+                        index % 2 === 1 && 'gallery-shape--reverse',
+                      ]}
+                      aria-hidden="true"
+                    >
+                    </div>
+                    <span class="absolute left-5 top-5 rounded-full border border-white/20 bg-black/20 px-3 py-1.5 text-[0.65rem] uppercase tracking-[0.16em] text-ink/80 backdrop-blur-md">
+                      {t('caseStudy.imagePlaceholder')}
+                    </span>
+                  </div>
+                )}
+              </div>
+              <figcaption class="mt-3 flex items-center justify-between gap-4 px-1 text-sm text-muted">
+                <span>{item.caption[lang]}</span>
+                <span class="font-display text-xs">
+                  {String(index + 2).padStart(2, '0')}
+                </span>
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
+    </section>
+
+    <div class="mt-20 flex justify-center border-t border-line pt-12 md:mt-28 md:pt-16">
+      <a
+        href={projectHome}
+        class="inline-flex items-center gap-3 rounded-full bg-ink px-6 py-3 text-sm font-medium text-bg transition-transform duration-300 ease-[var(--ease-out-expo)] hover:scale-[1.03] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
+      >
+        <span aria-hidden="true">←</span>
+        {t('caseStudy.back')}
+      </a>
+    </div>
+  </div>
+</article>
+
+<style>
+  .case-hero {
+    box-shadow:
+      inset 0 1px 0 rgb(245 245 245 / 0.08),
+      0 2rem 5rem rgb(0 0 0 / 0.2);
+  }
+
+  .case-grid,
+  .gallery-grid {
+    position: absolute;
+    inset: 0;
+    opacity: 0.28;
+    background-image:
+      linear-gradient(rgb(245 245 245 / 0.12) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(245 245 245 / 0.12) 1px, transparent 1px);
+    background-size: 3.5rem 3.5rem;
+    mask-image: linear-gradient(to bottom, black, transparent 88%);
+  }
+
+  .case-orb {
+    position: absolute;
+    top: 48%;
+    left: 52%;
+    width: clamp(13rem, 30vw, 23rem);
+    aspect-ratio: 1;
+    border: 1px solid rgb(245 245 245 / 0.32);
+    border-radius: 42% 58% 64% 36% / 52% 38% 62% 48%;
+    background:
+      radial-gradient(circle at 34% 30%, rgb(245 245 245 / 0.78), transparent 18%),
+      radial-gradient(circle at 58% 62%, rgb(245 245 245 / 0.36), transparent 48%);
+    box-shadow:
+      inset 0 0 4rem rgb(245 245 245 / 0.18),
+      0 0 5rem rgb(245 245 245 / 0.12);
+    transform: translate(-50%, -50%) rotate(-18deg);
+  }
+
+  .case-orb--small {
+    top: 68%;
+    left: 27%;
+    width: clamp(4rem, 9vw, 7rem);
+    opacity: 0.48;
+    filter: blur(2px);
+    transform: translate(-50%, -50%) rotate(22deg);
+  }
+
+  .gallery-frame {
+    box-shadow: inset 0 1px 0 rgb(245 245 245 / 0.08);
+  }
+
+  .gallery-grid {
+    background-size: 2.5rem 2.5rem;
+  }
+
+  .gallery-shape {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 34%;
+    aspect-ratio: 1.35;
+    border: 1px solid rgb(245 245 245 / 0.28);
+    border-radius: 38% 62% 44% 56% / 48% 38% 62% 52%;
+    background: rgb(245 245 245 / 0.09);
+    box-shadow:
+      inset 0 0 2.5rem rgb(245 245 245 / 0.16),
+      0 0 3rem rgb(245 245 245 / 0.1);
+    transform: translate(-50%, -50%) rotate(-12deg);
+    transition: transform 700ms var(--ease-out-expo);
+  }
+
+  .group:hover .gallery-shape {
+    transform: translate(-50%, -50%) rotate(-5deg) scale(1.04);
+  }
+
+  .gallery-shape--reverse {
+    border-radius: 62% 38% 56% 44% / 42% 58% 38% 62%;
+    transform: translate(-50%, -50%) rotate(14deg);
+  }
+
+  .group:hover .gallery-shape--reverse {
+    transform: translate(-50%, -50%) rotate(7deg) scale(1.04);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gallery-shape,
+    .group img {
+      transition-duration: 0.01ms;
+    }
+  }
+</style>

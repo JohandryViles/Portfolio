@@ -1,5 +1,6 @@
 ---
 import { languages, type Lang } from '../i18n/ui';
+import { switchLocalePath } from '../i18n/utils';
 
 interface Props {
   lang: Lang;
@@ -17,7 +18,7 @@ const { lang } = Astro.props;
     {
       (Object.keys(languages) as Lang[]).map((code) => {
         const active = code === lang;
-        const path = Astro.url.pathname.replace(/^\/(es|en)/, `/${code}`);
+        const path = switchLocalePath(Astro.url.pathname, code);
         return (
           <a
             href={active ? '#' : path}

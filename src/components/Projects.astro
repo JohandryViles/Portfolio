@@ -9,6 +9,10 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
+const getProjectPath = (projectId: string) =>
+  lang === 'es'
+    ? `/es/proyectos/${projectId}`
+    : `/en/projects/${projectId}`;
 
 const accents: Record<(typeof projects)[number]['accent'], string> = {
   violet: 'from-[#f5f5f5]/35 via-[#a6a6a6]/25 to-[#3d3d3d]/80',
@@ -72,12 +76,20 @@ const accents: Record<(typeof projects)[number]['accent'], string> = {
                   </ul>
                 </div>
                 <div class="mt-6 flex items-center gap-3">
-                  <span class="inline-flex rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-bg">
-                    {t('projects.readMore')}
-                  </span>
-                  <span class="grid size-10 place-items-center rounded-full border border-line text-ink">
-                    →
-                  </span>
+                  <a
+                    href={getProjectPath(project.id)}
+                    class="group inline-flex items-center gap-3 rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
+                  >
+                    <span class="inline-flex rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-bg transition-transform duration-300 ease-[var(--ease-out-expo)] group-hover:scale-[1.03]">
+                      {t('projects.readMore')}
+                    </span>
+                    <span
+                      class="grid size-10 place-items-center rounded-full border border-line text-ink transition-transform duration-300 ease-[var(--ease-out-expo)] group-hover:translate-x-1"
+                      aria-hidden="true"
+                    >
+                      →
+                    </span>
+                  </a>
                 </div>
               </div>
             </div>
