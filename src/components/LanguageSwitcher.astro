@@ -1,0 +1,55 @@
+---
+import { languages, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<div
+  class="lang-switch relative flex size-16 items-center justify-center rounded-full border border-line text-sm font-medium md:size-20"
+  role="group"
+  aria-label="Language"
+>
+  <div class="flex items-center gap-2 md:gap-3">
+    {
+      (Object.keys(languages) as Lang[]).map((code) => {
+        const active = code === lang;
+        const path = Astro.url.pathname.replace(/^\/(es|en)/, `/${code}`);
+        return (
+          <a
+            href={active ? '#' : path}
+            aria-current={active ? 'true' : undefined}
+            class:list={[
+              'transition-colors duration-300 ease-[var(--ease-out-expo)]',
+              active ? 'text-ink' : 'text-muted hover:text-ink',
+            ]}
+            data-lang-switch={code}
+          >
+            {languages[code]}
+          </a>
+        );
+      })
+    }
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLAnchorElement>('[data-lang-switch]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      const target = event.currentTarget as HTMLAnchorElement;
+      if (target.getAttribute('aria-current') === 'true') {
+        event.preventDefault();
+        return;
+      }
+      const hash = window.location.hash;
+      if (hash && target.href) {
+        event.preventDefault();
+        const url = new URL(target.href, window.location.origin);
+        window.location.href = `${url.pathname}${hash}`;
+      }
+    });
+  });
+</script>

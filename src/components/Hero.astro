@@ -1,0 +1,98 @@
+---
+import { Image } from 'astro:assets';
+import portrait from '../assets/johandry.png';
+import SocialIcon from './SocialIcon.astro';
+import { socials } from '../data/site';
+import { useTranslations } from '../i18n/utils';
+import type { Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section
+  class="relative flex min-h-[78svh] overflow-hidden pb-12 pt-10 md:min-h-[calc(92svh-5rem)] md:pb-16 md:pt-14"
+>
+  <div class="page-shell flex items-center">
+    <div
+      class="grid w-full items-start gap-8 md:grid-cols-[minmax(0,1fr)_clamp(190px,23vw,240px)] md:gap-7 lg:gap-8"
+    >
+      <div>
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <h1
+            class="font-display text-[clamp(3.0rem,7.0vw,4.8rem)] font-semibold leading-[0.92] tracking-[-0.02em] text-ink"
+          >
+            {t('hero.line1')}
+          </h1>
+
+          <div class="flex shrink-0 items-center gap-2">
+            <a
+              href="#projects"
+              class="inline-flex w-36 items-center justify-center rounded-full bg-ink px-6 py-3.5 text-sm font-medium italic text-bg transition-transform duration-300 ease-[var(--ease-out-expo)] hover:-translate-y-0.5 md:w-40 md:text-base"
+            >
+              {t('hero.cta')}
+            </a>
+            <a
+              href="#projects"
+              class="grid size-12 place-items-center rounded-full border border-line text-ink transition-transform duration-300 ease-[var(--ease-out-expo)] hover:-translate-y-0.5 md:size-[3.25rem]"
+              aria-label={t('hero.cta')}
+            >
+              <span aria-hidden="true" class="text-lg">→</span>
+            </a>
+          </div>
+        </div>
+
+        <div
+          class="mt-8 grid items-start gap-8 sm:grid-cols-[minmax(170px,0.75fr)_minmax(0,1.25fr)]"
+        >
+          <p
+            class="max-w-[20rem] text-base leading-[1.55] text-muted md:text-[1.05rem]"
+            set:html={t('hero.tagline')}
+          />
+
+          <h2
+            class="text-right font-display text-[clamp(3.0rem,7.0vw,4.8rem)] font-semibold leading-[0.92] tracking-[-0.02em] text-ink"
+          >
+            {t('hero.line2')}
+          </h2>
+        </div>
+
+        <ul class="mt-10 flex flex-wrap gap-3 md:mt-12">
+          {
+            socials.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  target={item.id === 'email' ? undefined : '_blank'}
+                  rel={item.id === 'email' ? undefined : 'noopener noreferrer'}
+                  class="inline-flex items-center gap-2.5 rounded-full border border-line px-5 py-3 text-sm text-ink transition-all duration-300 ease-[var(--ease-out-expo)] hover:-translate-y-0.5 hover:border-ink/35"
+                >
+                  <SocialIcon name={item.id} />
+                  <span>{item.label}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="mx-auto w-full max-w-[220px] self-start md:mx-0 md:max-w-none">
+        <div class="overflow-hidden rounded-[1.5rem] border border-line bg-surface">
+          <Image
+            src={portrait}
+            alt={t('about.photoAlt')}
+            widths={[240, 360, 480]}
+            sizes="(max-width: 768px) 220px, 240px"
+            class="aspect-[4/5] h-full w-full object-cover object-[center_14%]"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

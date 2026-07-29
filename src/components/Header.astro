@@ -1,0 +1,76 @@
+---
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { site } from '../data/site';
+import { useTranslations } from '../i18n/utils';
+import type { Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const [firstName, ...rest] = site.name.split(' ');
+const lastName = rest.join(' ');
+
+const links = [
+  { href: `#about`, label: t('nav.about') },
+  { href: `#projects`, label: t('nav.projects') },
+  { href: `#contact`, label: t('nav.contact') },
+] as const;
+---
+
+<header class="relative z-40">
+  <div class="page-shell flex items-center justify-between gap-4 pt-8">
+    <a
+      href={`/${lang}`}
+      class="font-display text-base font-semibold leading-tight tracking-tight text-ink transition-opacity hover:opacity-80 md:text-lg"
+    >
+      <span class="block">{firstName}</span>
+      {lastName && <span class="block">{lastName}</span>}
+    </a>
+
+    <nav class="hidden items-center gap-7 md:flex" aria-label="Primary">
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            class="text-sm text-muted transition-colors duration-300 hover:text-ink"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <details class="relative md:hidden">
+        <summary
+          class="list-none rounded-full border border-line bg-surface px-3 py-1.5 text-sm text-ink marker:content-none [&::-webkit-details-marker]:hidden"
+        >
+          Menu
+        </summary>
+        <nav
+          class="absolute right-0 mt-2 min-w-44 rounded-2xl border border-line bg-surface-2 p-3 shadow-xl"
+          aria-label="Mobile"
+        >
+          <ul class="flex flex-col gap-1">
+            {
+              links.map((link) => (
+                <li>
+                  <a
+                    href={link.href}
+                    class="block rounded-xl px-3 py-2 text-sm text-muted hover:bg-surface hover:text-ink"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </details>
+      <LanguageSwitcher lang={lang} />
+    </div>
+  </div>
+</header>
