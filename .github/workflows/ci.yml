@@ -1,12 +1,16 @@
-name: CI
+name: CI/CD
 
 on:
   push:
     branches: [main]
   pull_request:
 
+concurrency:
+  group: ci-cd-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  build:
+  quality:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -26,3 +30,6 @@ jobs:
 
       - name: Build
         run: npm run build
+
+  # CD: el repo está enlazado en Vercel (proyecto devjohandry). Cada push a main
+  # y cada PR despliegan desde el dashboard de Vercel automáticamente.

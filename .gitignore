@@ -18,6 +18,9 @@ pnpm-debug.log*
 .env.*
 !.env.example
 
+# Vercel
+.vercel/
+
 # macOS
 .DS_Store
 
@@ -26,3 +29,6 @@ pnpm-debug.log*
 .vscode/*
 !.vscode/extensions.json
 !.vscode/launch.json
+
+.vercel
+.env*

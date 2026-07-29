@@ -9,7 +9,7 @@ export const defaultLang: Lang = 'es';
 
 export const ui = {
   es: {
-    'meta.title': 'Johandry Viles — Full-stack Developer',
+    'meta.title': 'Johandry Viles - Full Stack Developer',
     'meta.description':
       'Portfolio de Johandry Viles, estudiante de Ingeniería en Software y desarrollador full-stack.',
     'nav.about': 'Sobre mí',
@@ -51,7 +51,7 @@ export const ui = {
     'footer.rights': 'Todos los derechos reservados.',
   },
   en: {
-    'meta.title': 'Johandry Viles — Full-stack Developer',
+    'meta.title': 'Johandry Viles - Full Stack Developer',
     'meta.description':
       'Portfolio of Johandry Viles, Software Engineering student and full-stack developer.',
     'nav.about': 'About',

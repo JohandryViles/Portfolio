@@ -35,18 +35,38 @@ Abre `http://localhost:4321` — redirige a `/es`. Inglés en `/en`.
 - Copy: `src/i18n/ui.ts`
 - Datos (stack, proyectos, socials): `src/data/site.ts`
 
-## Deploy en Vercel (CD)
+## Deploy en Vercel
 
-1. Push este repo a GitHub (`JohandryViles/Portfolio`).
-2. En [vercel.com](https://vercel.com) → **Add New Project** → Import el repo.
-3. Framework preset: **Astro** (build: `npm run build`, output: `dist`).
-4. Deploy. Cada push a `main` publica producción; cada PR genera preview.
+**Producción:** [devjohandry.vercel.app](https://devjohandry.vercel.app)
+
+### CLI (manual)
+
+```sh
+npm install -g vercel@latest
+vercel link --project devjohandry   # primera vez
+vercel deploy --prod
+```
+
+### CI/CD (GitHub + Vercel)
+
+| Capa | Qué hace |
+| --- | --- |
+| **CI** (GitHub Actions) | En cada push/PR a `main`: `npm ci` → `check` → `build`. |
+| **CD** (Vercel) | El repo [Portfolio](https://github.com/JohandryViles/Portfolio) está conectado al proyecto **devjohandry**. Push a `main` → producción; PR → preview. |
+
+Si quieres desplegar a mano:
+
+```sh
+vercel deploy --prod
+```
+
+Build en Vercel: `npm run build` · Output: `dist` (Astro estático).
 
 No se requieren variables de entorno para el MVP.
 
-## CI
+## CI (local)
 
-GitHub Actions (`.github/workflows/ci.yml`) corre en push/PR a `main`:
+Mismos pasos que el job `quality` en Actions:
 
 1. `npm ci`
 2. `npm run check`
