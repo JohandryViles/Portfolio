@@ -1,5 +1,6 @@
 ---
 import LanguageSwitcher from './LanguageSwitcher.astro';
+import ThemeToggle from './ThemeToggle.astro';
 import { site } from '../data/site';
 import { useTranslations } from '../i18n/utils';
 import type { Lang } from '../i18n/ui';
@@ -18,6 +19,9 @@ const links = [
   { href: `/${lang}#projects`, label: t('nav.projects') },
   { href: `/${lang}#contact`, label: t('nav.contact') },
 ] as const;
+
+const controlClass =
+  'rounded-full border border-line bg-transparent text-sm text-ink transition-colors duration-300 ease-[var(--ease-out-expo)] hover:border-ink/35 hover:bg-surface/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink';
 ---
 
 <header class="relative z-40">
@@ -41,17 +45,23 @@ const links = [
           </a>
         ))
       }
+      <button type="button" class:list={[controlClass, 'px-4 py-2']}>
+        {t('nav.downloadCv')}
+      </button>
     </nav>
 
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-2.5 md:gap-3">
       <details class="relative md:hidden">
         <summary
-          class="list-none rounded-full border border-line bg-surface px-3 py-1.5 text-sm text-ink marker:content-none [&::-webkit-details-marker]:hidden"
+          class:list={[
+            controlClass,
+            'list-none px-3 py-1.5 marker:content-none [&::-webkit-details-marker]:hidden',
+          ]}
         >
           Menu
         </summary>
         <nav
-          class="absolute right-0 mt-2 min-w-44 rounded-2xl border border-line bg-surface-2 p-3 shadow-xl"
+          class="absolute right-0 mt-2 min-w-48 rounded-2xl border border-line bg-surface-2 p-3 shadow-xl"
           aria-label="Mobile"
         >
           <ul class="flex flex-col gap-1">
@@ -67,9 +77,18 @@ const links = [
                 </li>
               ))
             }
+            <li>
+              <button
+                type="button"
+                class="block w-full rounded-xl px-3 py-2 text-left text-sm text-muted hover:bg-surface hover:text-ink"
+              >
+                {t('nav.downloadCv')}
+              </button>
+            </li>
           </ul>
         </nav>
       </details>
+      <ThemeToggle lang={lang} />
       <LanguageSwitcher lang={lang} />
     </div>
   </div>

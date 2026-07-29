@@ -24,7 +24,7 @@ const alternates = alternatePaths ?? {
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={lang} data-theme="dark">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -32,11 +32,25 @@ const alternates = alternatePaths ?? {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={pageDescription} />
+    <meta name="color-scheme" content="dark light" />
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang="es" href={new URL(alternates.es, baseUrl)} />
     <link rel="alternate" hreflang="en" href={new URL(alternates.en, baseUrl)} />
     <link rel="alternate" hreflang="x-default" href={new URL(alternates.es, baseUrl)} />
     <title>{pageTitle}</title>
+    <script is:inline>
+      (() => {
+        const stored = localStorage.getItem('theme');
+        const theme =
+          stored === 'light' || stored === 'dark'
+            ? stored
+            : window.matchMedia('(prefers-color-scheme: light)').matches
+              ? 'light'
+              : 'dark';
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      })();
+    </script>
   </head>
   <body class="min-h-screen">
     <a

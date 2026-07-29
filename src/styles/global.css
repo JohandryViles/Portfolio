@@ -10,6 +10,31 @@
 @import "@fontsource/open-sans/400-italic.css";
 @import "@fontsource/open-sans/600-italic.css";
 
+:root,
+html[data-theme='dark'] {
+  --palette-bg: #121212;
+  --palette-surface: #3d3d3d;
+  --palette-surface-2: #2a2a2a;
+  --palette-ink: #f5f5f5;
+  --palette-muted: #a6a6a6;
+  --palette-line: rgb(245 245 245 / 0.14);
+  --palette-selection-bg: rgb(245 245 245 / 0.2);
+  --palette-selection-fg: #121212;
+  color-scheme: dark;
+}
+
+html[data-theme='light'] {
+  --palette-bg: #f5f5f5;
+  --palette-surface: #e8e8e8;
+  --palette-surface-2: #ffffff;
+  --palette-ink: #121212;
+  --palette-muted: #5f5f5f;
+  --palette-line: rgb(18 18 18 / 0.14);
+  --palette-selection-bg: rgb(18 18 18 / 0.16);
+  --palette-selection-fg: #f5f5f5;
+  color-scheme: light;
+}
+
 @theme {
   /* Headings / developer identity */
   --font-display: "Fira Code", ui-monospace, monospace;
@@ -17,14 +42,14 @@
   --font-sans: "Open Sans", ui-sans-serif, sans-serif;
 
   /* Brand palette */
-  --color-bg: #121212;
-  --color-surface: #3d3d3d;
-  --color-surface-2: #2a2a2a;
-  --color-ink: #f5f5f5;
-  --color-muted: #a6a6a6;
-  --color-primary: #f5f5f5;
-  --color-accent: #a6a6a6;
-  --color-line: rgb(245 245 245 / 0.14);
+  --color-bg: var(--palette-bg);
+  --color-surface: var(--palette-surface);
+  --color-surface-2: var(--palette-surface-2);
+  --color-ink: var(--palette-ink);
+  --color-muted: var(--palette-muted);
+  --color-primary: var(--palette-ink);
+  --color-accent: var(--palette-muted);
+  --color-line: var(--palette-line);
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -50,6 +75,9 @@
   body {
     @apply bg-bg text-ink font-sans antialiased;
     min-height: 100vh;
+    transition:
+      background-color 280ms ease,
+      color 280ms ease;
   }
 
   h1,
@@ -65,12 +93,12 @@
 
   em {
     font-style: italic;
-    color: #f5f5f5;
+    color: var(--palette-ink);
   }
 
   ::selection {
-    background: rgb(245 245 245 / 0.2);
-    color: #121212;
+    background: var(--palette-selection-bg);
+    color: var(--palette-selection-fg);
   }
 }
 
@@ -135,11 +163,11 @@
   100% {
     opacity: 1;
     transform: scale(1);
-    box-shadow: 0 0 0 0 rgb(245 245 245 / 0.45);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--palette-ink) 45%, transparent);
   }
   50% {
     opacity: 0.7;
     transform: scale(1.35);
-    box-shadow: 0 0 0 8px rgb(245 245 245 / 0);
+    box-shadow: 0 0 0 8px transparent;
   }
 }

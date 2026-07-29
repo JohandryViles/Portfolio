@@ -1,0 +1,125 @@
+---
+import { useTranslations } from '../i18n/utils';
+import type { Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<button
+  type="button"
+  class="theme-toggle relative grid size-12 place-items-center rounded-full border border-line text-ink transition-colors duration-300 ease-[var(--ease-out-expo)] hover:border-ink/35 hover:bg-surface/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink md:size-14"
+  data-theme-toggle
+  data-label-light={t('nav.themeLight')}
+  data-label-dark={t('nav.themeDark')}
+  aria-label={t('nav.theme')}
+  title={t('nav.theme')}
+>
+  <span class="theme-icon theme-icon--sun" aria-hidden="true">
+    <svg
+      viewBox="0 0 24 24"
+      class="size-4 md:size-[1.1rem]"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.6"
+    >
+      <circle cx="12" cy="12" r="3.5"></circle>
+      <path
+        stroke-linecap="round"
+        d="M12 2.8v2.2M12 19v2.2M21.2 12h-2.2M5 12H2.8M18.5 5.5l-1.6 1.6M7.1 16.9l-1.6 1.6M18.5 18.5l-1.6-1.6M7.1 7.1 5.5 5.5"
+      >
+      </path>
+    </svg>
+  </span>
+  <span class="theme-icon theme-icon--moon" aria-hidden="true">
+    <svg
+      viewBox="0 0 24 24"
+      class="size-4 md:size-[1.1rem]"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.6"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M18.4 14.2A7.2 7.2 0 0 1 9.8 5.6 7.4 7.4 0 1 0 18.4 14.2Z"
+      >
+      </path>
+    </svg>
+  </span>
+</button>
+
+<style>
+  .theme-icon {
+    position: absolute;
+    transition:
+      opacity 250ms ease,
+      transform 350ms var(--ease-out-expo);
+  }
+
+  :global(html[data-theme='light']) .theme-icon--sun,
+  :global(html:not([data-theme='light'])) .theme-icon--moon {
+    opacity: 0;
+    transform: scale(0.7) rotate(-20deg);
+    pointer-events: none;
+  }
+
+  :global(html[data-theme='light']) .theme-icon--moon,
+  :global(html:not([data-theme='light'])) .theme-icon--sun {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .theme-icon {
+      transition-duration: 0.01ms;
+    }
+  }
+</style>
+
+<script>
+  const STORAGE_KEY = 'theme';
+
+  const getPreferredTheme = (): 'light' | 'dark' => {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored === 'light' || stored === 'dark') return stored;
+    return window.matchMedia('(prefers-color-scheme: light)').matches
+      ? 'light'
+      : 'dark';
+  };
+
+  const applyTheme = (theme: 'light' | 'dark') => {
+    document.documentElement.dataset.theme = theme;
+    document.documentElement.style.colorScheme = theme;
+    localStorage.setItem(STORAGE_KEY, theme);
+
+    document
+      .querySelectorAll<HTMLButtonElement>('[data-theme-toggle]')
+      .forEach((button) => {
+        const nextLabel =
+          theme === 'dark'
+            ? button.dataset.labelLight
+            : button.dataset.labelDark;
+        if (nextLabel) {
+          button.setAttribute('aria-label', nextLabel);
+          button.setAttribute('title', nextLabel);
+        }
+      });
+  };
+
+  document
+    .querySelectorAll<HTMLButtonElement>('[data-theme-toggle]')
+    .forEach((button) => {
+      button.addEventListener('click', () => {
+        const current =
+          document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
+        applyTheme(current === 'dark' ? 'light' : 'dark');
+      });
+    });
+
+  applyTheme(getPreferredTheme());
+</script>

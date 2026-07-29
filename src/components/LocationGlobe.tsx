@@ -168,7 +168,7 @@ export default function LocationGlobe({
         className="relative mx-auto aspect-square w-full max-w-[420px] touch-none"
       />
 
-      <div className="relative z-10 m-4 rounded-2xl border border-line bg-[#121212]/85 px-4 py-4 backdrop-blur-sm md:m-5 md:px-5">
+      <div className="relative z-10 m-4 rounded-2xl border border-line bg-bg/85 px-4 py-4 backdrop-blur-sm md:m-5 md:px-5">
         <div className="flex items-center gap-3">
           <div className="grid size-10 shrink-0 place-items-center rounded-xl border border-line bg-surface text-ink">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
