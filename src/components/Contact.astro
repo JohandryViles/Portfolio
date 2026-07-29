@@ -1,0 +1,92 @@
+---
+import SocialIcon from './SocialIcon.astro';
+import { site, footerSocials } from '../data/site';
+import { useTranslations } from '../i18n/utils';
+import type { Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const [firstName, ...rest] = site.name.split(' ');
+const lastName = rest.join(' ');
+
+const nav = [
+  { href: `/${lang}`, label: t('contact.navMain') },
+  { href: `#about`, label: t('nav.about') },
+  { href: `#projects`, label: t('nav.projects') },
+  { href: `#contact`, label: t('nav.contact') },
+] as const;
+---
+
+<section id="contact" class="relative scroll-mt-24 overflow-hidden py-16 md:py-24">
+  <div
+    class="pointer-events-none absolute left-[28%] top-[10%] size-[28rem] rounded-full border border-line/45 md:size-[34rem]"
+    aria-hidden="true"
+  ></div>
+
+  <div class="page-shell relative z-10">
+    <div class="grid gap-12 lg:grid-cols-2 lg:items-start lg:gap-16">
+      <div class="relative">
+        <h2 class="font-display text-[clamp(2.75rem,7vw,4.75rem)] font-semibold leading-[0.92] tracking-[-0.02em] text-ink">
+          {firstName}
+        </h2>
+        <p class="relative z-10 -mb-8 mt-1 max-w-[9rem] text-sm leading-[1.5] text-muted md:-mb-10 md:text-base">
+          {t('hero.line1')}
+          <br />
+          {t('hero.line2')}
+        </p>
+        {
+          lastName && (
+            <p class="pl-28 font-display text-[clamp(2.75rem,7vw,5.5rem)] font-semibold leading-[0.92] tracking-[-0.02em] text-ink md:pl-40">
+              {lastName}
+            </p>
+          )
+        }
+      </div>
+
+      <div class="flex flex-col gap-6 lg:items-end lg:text-right">
+        <p class="font-display text-sm text-muted">{t('contact.crumb')}</p>
+
+        <nav
+          class="flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted lg:justify-end"
+          aria-label="Footer"
+        >
+          {
+            nav.map((item) => (
+              <a href={item.href} class="transition-colors duration-300 hover:text-ink">
+                {item.label}
+              </a>
+            ))
+          }
+        </nav>
+
+        <div class="w-full max-w-[16rem] rounded-2xl border border-line px-5 py-4 text-left text-sm leading-relaxed text-muted lg:ml-auto">
+          <p class="mb-2 font-medium text-ink">{t('contact.siteTitle')}</p>
+          <p>{t('contact.siteHandcrafted')}</p>
+          <p>{t('contact.sitePowered')}</p>
+        </div>
+      </div>
+    </div>
+
+    <ul class="mt-14 grid w-full grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6 md:mt-16">
+      {
+        footerSocials.map((item) => (
+          <li class="min-w-0">
+            <a
+              href={item.href}
+              target={item.id === 'email' ? undefined : '_blank'}
+              rel={item.id === 'email' ? undefined : 'noopener noreferrer'}
+              class="flex w-full items-center justify-center gap-2 rounded-full border border-line px-3 py-2.5 text-sm text-ink transition-all duration-300 ease-[var(--ease-out-expo)] hover:-translate-y-0.5 hover:border-ink/40"
+            >
+              <SocialIcon name={item.id} class="size-4 shrink-0" />
+              <span class="truncate">{item.label}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
