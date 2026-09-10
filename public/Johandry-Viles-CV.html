@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CV | Johandry Andres Viles Lopez</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+      }
+
+      body {
+        background: #d8d8d8;
+        color: #111;
+        font-family: "Times New Roman", Times, serif;
+        font-size: 10.5pt;
+        line-height: 1.18;
+      }
+
+      a {
+        color: #111;
+        text-decoration: underline;
+      }
+
+      .plain-link {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .page {
+        width: 210mm;
+        min-height: 297mm;
+        margin: 12mm auto;
+        padding: 10mm 14mm 9mm;
+        background: #fff;
+        box-shadow: 0 2mm 8mm rgb(0 0 0 / 18%);
+      }
+
+      .name {
+        margin: 0 0 4.5mm;
+        text-align: center;
+        font-size: 19pt;
+        line-height: 1;
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3mm 10mm;
+        padding-bottom: 3.2mm;
+        border-bottom: 0.6pt solid #777;
+      }
+
+      .contact-grid p {
+        margin: 0 0 0.8mm;
+      }
+
+      .contact-grid div:last-child {
+        text-align: right;
+      }
+
+      .section {
+        margin-top: 5.2mm;
+      }
+
+      .section-title {
+        margin: 0 0 3mm;
+        padding-bottom: 1.4mm;
+        border-bottom: 0.6pt solid #999;
+        color: #3d3d3d;
+        font-size: 12.5pt;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .profile {
+        margin: 0 2.5mm;
+        text-align: center;
+        font-size: 10.8pt;
+        line-height: 1.22;
+      }
+
+      .detail-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .detail-table th,
+      .detail-table td {
+        padding: 0.35mm 2.5mm;
+        text-align: left;
+        vertical-align: top;
+      }
+
+      .detail-table th {
+        width: 30%;
+        font-weight: 700;
+      }
+
+      .skills-table th {
+        width: 28%;
+      }
+
+      .project + .project {
+        margin-top: 3mm;
+      }
+
+      .project-heading {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 8mm;
+      }
+
+      .project-heading h3,
+      .project-heading p {
+        margin: 0;
+        font-size: 10.5pt;
+      }
+
+      .project-heading p {
+        flex: none;
+        font-weight: 700;
+      }
+
+      .project-stack {
+        margin: 0.7mm 0 0;
+        font-style: italic;
+      }
+
+      ul {
+        margin: 1mm 0 0 5.5mm;
+        padding: 0;
+      }
+
+      li {
+        margin-bottom: 0.7mm;
+        padding-left: 0.8mm;
+      }
+
+      .education-heading {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 8mm;
+      }
+
+      .education-heading p {
+        margin: 0;
+      }
+
+      .education-detail {
+        margin: 0.8mm 0 0;
+        font-style: italic;
+      }
+
+      @media print {
+        body {
+          background: #fff;
+          print-color-adjust: exact;
+          -webkit-print-color-adjust: exact;
+        }
+
+        .page {
+          margin: 0;
+          box-shadow: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <header>
+        <h1 class="name">JOHANDRY ANDRES VILES LOPEZ</h1>
+        <div class="contact-grid">
+          <div>
+            <p><strong>Ubicación:</strong> Manta, Manabí, Ecuador</p>
+            <p>
+              <strong>Email:</strong>
+              <a class="plain-link" href="mailto:johalop858@gmail.com">johalop858@gmail.com</a>
+            </p>
+            <p>
+              <strong>LinkedIn:</strong>
+              <a href="https://www.linkedin.com/in/johandry-viles-0595322b4/"
+                >linkedin.com/in/johandry-viles-0595322b4</a
+              >
+            </p>
+          </div>
+          <div>
+            <p>
+              <strong>Teléfono:</strong>
+              <a class="plain-link" href="tel:+593961065204">+593 96 106 5204</a>
+            </p>
+            <p>
+              <strong>Portfolio:</strong>
+              <a href="https://devjohandry.me">devjohandry.me</a>
+            </p>
+            <p>
+              <strong>GitHub:</strong>
+              <a href="https://github.com/JohandryViles">github.com/JohandryViles</a>
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <section class="section">
+        <h2 class="section-title">Perfil profesional</h2>
+        <p class="profile">
+          Estudiante de Ingeniería en Software y desarrollador full-stack enfocado en crear
+          aplicaciones web mantenibles. Experiencia práctica con React, Astro y TypeScript en
+          frontend; Python, FastAPI y Node.js en backend; y despliegues con Docker y servicios
+          cloud. Interés en arquitectura limpia, automatización e integración responsable de IA.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>
