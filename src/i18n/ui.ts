@@ -13,6 +13,7 @@ export const ui = {
     'meta.description':
       'Portfolio de Johandry Viles, estudiante de Ingeniería en Software y desarrollador full-stack.',
     'nav.about': 'Sobre mí',
+    'nav.experience': 'Experiencia',
     'nav.projects': 'Proyectos',
     'nav.location': 'Ubicación',
     'nav.contact': 'Contacto',
@@ -35,6 +36,8 @@ export const ui = {
     'stack.tech': 'Stack de tecnologías',
     'stack.databases': 'Bases de datos',
     'stack.tools': 'Control de versiones y herramientas',
+    'experience.crumb': '... / Experiencia laboral ...',
+    'experience.title': 'Experiencia',
     'projects.title': 'Proyectos',
     'projects.comingSoon': 'Próximamente',
     'projects.readMore': 'Leer más',
@@ -70,6 +73,7 @@ export const ui = {
     'meta.description':
       'Portfolio of Johandry Viles, Software Engineering student and full-stack developer.',
     'nav.about': 'About',
+    'nav.experience': 'Experience',
     'nav.projects': 'Projects',
     'nav.location': 'Location',
     'nav.contact': 'Contact',
@@ -92,6 +96,8 @@ export const ui = {
     'stack.tech': 'Tech Stack',
     'stack.databases': 'Databases',
     'stack.tools': 'Version Control & Tools',
+    'experience.crumb': '... / Work experience ...',
+    'experience.title': 'Experience',
     'projects.title': 'Projects',
     'projects.comingSoon': 'Coming soon',
     'projects.readMore': 'Read more',

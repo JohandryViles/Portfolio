@@ -1,0 +1,62 @@
+---
+import { experiences } from '../data/site';
+import { useTranslations } from '../i18n/utils';
+import type { Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section id="experience" class="scroll-mt-24 py-14 md:py-20">
+  <div class="page-shell">
+    <div class="mb-7 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+      <p class="text-sm text-muted">{t('experience.crumb')}</p>
+      <h2 class="text-3xl font-semibold text-ink md:text-4xl">{t('experience.title')}</h2>
+    </div>
+
+    <div class="grid gap-6">
+      {
+        experiences.map((experience) => (
+          <article class="rounded-[1.4rem] border border-line bg-transparent p-4 md:p-6">
+            <div class="flex items-start gap-4">
+              <div class="grid size-14 shrink-0 place-items-center rounded-xl border border-line bg-[#d8d8d8] text-[#121212] shadow-sm">
+                <span class="text-[0.7rem] font-semibold tracking-tight">{experience.logo}</span>
+              </div>
+              <div class="min-w-0 flex-1">
+                <h3 class="text-2xl font-semibold leading-tight text-ink md:text-[2rem]">
+                  {experience.title[lang]}
+                </h3>
+                <p class="mt-2 text-base text-muted md:text-lg">
+                  {experience.company[lang]}
+                </p>
+                <p class="mt-1 text-sm text-muted md:text-base">
+                  {experience.period[lang]}
+                </p>
+                <p class="mt-1 text-sm text-muted md:text-base">
+                  {experience.location[lang]}
+                </p>
+              </div>
+            </div>
+
+            <div class="mt-5 space-y-4 text-base leading-relaxed text-ink md:text-[1.08rem]">
+              <p class="font-medium">
+                <span class="inline-flex items-center gap-2">
+                  <span aria-hidden="true">●</span>
+                  {experience.role[lang]}
+                </span>
+              </p>
+              {experience.body[lang].map((paragraph) => (
+                <p class="text-muted">{paragraph}</p>
+              ))}
+            </div>
+
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
