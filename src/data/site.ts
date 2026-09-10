@@ -74,6 +74,60 @@ export const stackGroups: StackGroup[] = [
   },
 ];
 
+export type Experience = {
+  id: string;
+  logo: string;
+  title: LocalizedCopy;
+  company: LocalizedCopy;
+  period: LocalizedCopy;
+  location: LocalizedCopy;
+  role: LocalizedCopy;
+  body: {
+    es: string[];
+    en: string[];
+  };
+};
+
+// Añade nuevos puestos a esta colección para mostrarlos automáticamente en la sección.
+export const experiences: Experience[] = [
+  {
+    id: 'autoridad-portuaria-manta',
+    logo: 'AP',
+    title: {
+      es: 'Ingeniero de software',
+      en: 'Software engineer',
+    },
+    company: {
+      es: 'Autoridad Portuaria De Manta · Contrato de prácticas',
+      en: 'Autoridad Portuaria De Manta · Internship contract',
+    },
+    period: {
+      es: 'may. 2026 - sept. 2026 · 5 meses',
+      en: 'May 2026 - Sep 2026 · 5 months',
+    },
+    location: {
+      es: 'Manta, Manabí, Ecuador · Presencial',
+      en: 'Manta, Manabí, Ecuador · On-site',
+    },
+    role: {
+      es: 'Pasante de Ingeniería de Software | Full-Stack Developer',
+      en: 'Software Engineering Intern | Full-Stack Developer',
+    },
+    body: {
+      es: [
+        'Data Engineering & SQL Optimization: Diseño y tunnning de consultas complejas, vistas indexadas y stored procedures. Optimización del rendimiento de queries para reducir la latencia en la recuperación de datos operativos en tiempo real.',
+        'Database Modeling & Integrity: Modelado físico y lógico de bases de datos relacionales (EDR), garantizando la normalización, consistencia y escalabilidad del almacenamiento de datos masivos.',
+        'Full-Stack Development: Colaboración en todo el ciclo de vida del software, desde el diseño de interfaces de usuario dinámicas e intuitivas (Frontend) hasta la construcción de una lógica de servidor robusta y APIs eficientes (Backend).',
+      ],
+      en: [
+        'Data Engineering & SQL Optimization: Designed and tuned complex queries, indexed views, and stored procedures while reducing latency in operational data recovery workflows.',
+        'Database Modeling & Integrity: Modeled physical and logical relational databases (ERD), ensuring normalization, consistency, and scalability for high-volume data storage.',
+        'Full-Stack Development: Collaborated across the software lifecycle, from designing intuitive dynamic user interfaces (Frontend) to building robust server logic and efficient APIs (Backend).',
+      ],
+    },
+  },
+];
+
 export type LocalizedCopy = {
   es: string;
   en: string;
