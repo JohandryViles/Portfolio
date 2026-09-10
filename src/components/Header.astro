@@ -45,9 +45,13 @@ const controlClass =
           </a>
         ))
       }
-      <button type="button" class:list={[controlClass, 'px-4 py-2']}>
+      <a
+        href="/Johandry-Viles-CV.pdf"
+        download="Johandry-Viles-CV.pdf"
+        class:list={[controlClass, 'px-4 py-2']}
+      >
         {t('nav.downloadCv')}
-      </button>
+      </a>
     </nav>
 
     <div class="flex items-center gap-2.5 md:gap-3">
@@ -78,12 +82,13 @@ const controlClass =
               ))
             }
             <li>
-              <button
-                type="button"
+              <a
+                href="/Johandry-Viles-CV.pdf"
+                download="Johandry-Viles-CV.pdf"
                 class="block w-full rounded-xl px-3 py-2 text-left text-sm text-muted hover:bg-surface hover:text-ink"
               >
                 {t('nav.downloadCv')}
-              </button>
+              </a>
             </li>
           </ul>
         </nav>
